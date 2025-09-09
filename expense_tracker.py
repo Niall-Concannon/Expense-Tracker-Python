@@ -1,32 +1,63 @@
-# Create the dictionary
+# Create the dictionary - Variables
 expenses = { }
 category = ""
 amount = 0
 more = "Y"
 
-while more != "N":
-    # Get user input
+while more != "N" or more != "n":
+
+    # --- Get category ---
     print("Enter category: ")
-    category = input()
-
-    print("Enter amount spent: ")
-    amount = input()
-
-    print("Enter more? Y or N: ")
-    more = input()
-
-    if(more == "Y" or more == "y"):
-        print("Y selected")
-
-        # Add to dictionary
-        expenses[category] = amount
     
-    elif(more == "N" or more == "n"):
-        print("N selected")
+    while True:
+        category = input()
 
-        # Add to dictionary
-        expenses[category] = amount
+        if not category.isalpha():
+            print("Please enter letters: ")
+
+        else:
+            break
+    
+    # --- Get amount ---
+    print("Enter amount spent: ")
+
+    while True:
+        amount = input()
+
+        if not amount.isdigit():
+            print("Please enter a number: ")
+        
+        else:
+            break
+
+    # --- Get user input on more data ---
+    print("Enter more? Y or N: ")
+
+    while more != "Y" or more != "y" or more != "N" or more != "n":
+        more = input()
+        
+        if(more == "Y" or more == "y"):
+            print("Y selected")
+
+            # Add to dictionary
+            expenses[category] = amount
+            break
+        
+        elif(more == "N" or more == "n"):
+            print("N selected")
+
+            # Add to dictionary
+            expenses[category] = amount
+            break
+
+        else:
+            print("Y or N not selected. Try again")
+
+    # if statement to break if n was selected
+    if more == "N" or more == "n":
         break
+
+# --- End of main while loop
 
 print("\nPrinting out Expense List")
 
