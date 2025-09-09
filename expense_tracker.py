@@ -1,7 +1,13 @@
-expenses = {
-    "Housing": 0,
-    "Transportation": 0,
-    "Groceries": 0,
-    "Insurance": 0,
-    "Entertainment": 0
-}
+# Create the dictionary
+expenses = { }
+
+# Get user input
+print("Enter category: ")
+category = input()
+
+print("Enter amount spent: ")
+amount = input()
+
+# Add to dictionary
+expenses[category] = amount
+print(expenses)
