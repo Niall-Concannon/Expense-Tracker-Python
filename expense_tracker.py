@@ -1,8 +1,18 @@
+import json
+import os
+
 # Create the dictionary - Variables
 expenses = { }
 category = ""
 amount = 0
 more = "Y"
+
+# Load from file - os import needed to check if path exists
+isExist = os.path.exists("expenses.txt")
+
+if isExist != False:
+    with open ("expenses.txt", "r") as fp:
+        expenses = json.load(fp)
 
 while more != "N" or more != "n":
 
@@ -64,3 +74,7 @@ print("\nPrinting out Expense List")
 # Loop to print out all dictionary items
 for key, value in expenses.items():
     print("Category:", key, "Amount:", value)
+
+# Write to file
+with open("expenses.txt", "w") as fp:
+    json.dump(expenses, fp)
