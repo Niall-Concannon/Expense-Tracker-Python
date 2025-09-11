@@ -10,9 +10,20 @@ more = "Y"
 # Load from file - os import needed to check if path exists
 isExist = os.path.exists("expenses.txt")
 
-if isExist != False:
-    with open ("expenses.txt", "r") as fp:
-        expenses = json.load(fp)
+if isExist == True:
+    print("Previous file found. Do you want to load file? Y or N:")
+    choice = input()
+
+    if choice == "Y" or choice == "y":
+        print("Loading file.")
+
+        with open ("expenses.txt", "r") as fp:
+            expenses = json.load(fp)
+    else:
+        print("Not loading file.")
+    
+else:
+    print("No previous file found.")
 
 while more != "N" or more != "n":
 
