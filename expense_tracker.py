@@ -5,7 +5,7 @@ import os
 expenses = { }
 category = ""
 amount = 0
-more = "Y"
+option = 0
 
 # Load from file - os import needed to check if path exists
 isExist = os.path.exists("expenses.txt")
@@ -25,67 +25,84 @@ if isExist == True:
 else:
     print("No previous file found.")
 
-while more != "N" or more != "n":
+while option != 4:
 
-    # --- Get category ---
-    print("Enter category: ")
-    
-    while True:
+    print("1. Add expense\n2. Edit expense amount\n3. Delete expense\n4. Exit")
+    option = int(input())
+
+    if option == 1:
+        print("Option 1 selected.")
+        
+        # --- Get category ---
+        print("Enter category: ")
+        
+        while True:
+            category = input()
+
+            if not category.isalpha():
+                print("Please enter letters: ")
+
+            else:
+                break
+        
+        # --- Get amount ---
+        print("Enter amount spent: ")
+
+        while True:
+            amount = input()
+
+            if not amount.isdigit():
+                print("Please enter a number: ")
+            
+            else:
+                break
+
+        # Add to dictionary
+        expenses[category] = amount
+
+    elif option == 2:
+        print("Option 2 selected.")
+
+        print("Please enter category to change:")
         category = input()
 
-        if not category.isalpha():
-            print("Please enter letters: ")
+        # Check if category exists
+        if category not in expenses:
+            print("Category not found exiting.")
+            continue
 
-        else:
-            break
-    
-    # --- Get amount ---
-    print("Enter amount spent: ")
-
-    while True:
+        print("Please enter new amount:")
         amount = input()
 
-        if not amount.isdigit():
-            print("Please enter a number: ")
-        
-        else:
-            break
+        expenses[category] = amount
 
-    # --- Get user input on more data ---
-    print("Enter more? Y or N: ")
+    elif option == 3:
+        print("Option 3 selected.")
 
-    while more != "Y" or more != "y" or more != "N" or more != "n":
-        more = input()
-        
-        if(more == "Y" or more == "y"):
-            print("Y selected")
+        print("Please enter category to delete:")
+        category = input()
 
-            # Add to dictionary
-            expenses[category] = amount
-            break
-        
-        elif(more == "N" or more == "n"):
-            print("N selected")
+        # Check if category exists
+        if category not in expenses:
+            print("Category not found exiting.")
+            continue
 
-            # Add to dictionary
-            expenses[category] = amount
-            break
+        print("Deleting category from dictionary")
+        expenses.pop(category)
 
-        else:
-            print("Y or N not selected. Try again")
+    elif option == 4:
+        print("Exiting program.")
 
-    # if statement to break if n was selected
-    if more == "N" or more == "n":
-        break
+        if bool(expenses) == True:
+            print("\nPrinting out Expense List")
 
-# --- End of main while loop
+            # Loop to print out all dictionary items
+            for key, value in expenses.items():
+                print("Category:", key, "Amount:", value)
 
-print("\nPrinting out Expense List")
+            # Write to file
+            with open("expenses.txt", "w") as fp:
+                json.dump(expenses, fp)
 
-# Loop to print out all dictionary items
-for key, value in expenses.items():
-    print("Category:", key, "Amount:", value)
-
-# Write to file
-with open("expenses.txt", "w") as fp:
-    json.dump(expenses, fp)
+    else:
+        print("No option chosen. Try again.")
